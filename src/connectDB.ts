@@ -12,6 +12,7 @@ const connectDB = async () => {
 		console.log('Connected to DB 📂')
 	} catch (e) {
 		console.log(`Error connecting to MongoDB: ${e.message}. Stopping Server 🛑`)
+		process.exit(1)
 	}
 }
 
