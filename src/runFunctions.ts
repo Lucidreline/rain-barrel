@@ -3,6 +3,7 @@ import startUpdater from './updateDB'
 
 const runFuncitons = async () => {
 	console.log(signiture)
+	console.log('Rain Barrel ⛅ An Automated Weather Data Collection Service.')
 	await connectDB()
 	startUpdater()
 

@@ -10,7 +10,7 @@ export interface IWeather extends mongoose.Document {
 	weatherCode: Number
 	windSpeedMPH: Number
 	weatherDesc: string
-	date: Date
+	date?: Date
 }
 
 const weatherSchema = new mongoose.Schema({

@@ -46,7 +46,7 @@ const grabWeather = async () => {
 		weatherDesc: resJson.current_condition[0].weatherDesc[0].value,
 	}
 
-	console.log(weather)
+	return weather
 }
 
 export default grabWeather
