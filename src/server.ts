@@ -2,7 +2,7 @@ import express, { Application, Request, Response, NextFunction } from 'express'
 import config from 'config'
 import helmet from 'helmet'
 
-import runFuncitons from './runFunctions'
+import runFuncitons from './utils/runFunctions'
 
 runFuncitons()
 
