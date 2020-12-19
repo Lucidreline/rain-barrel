@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import config from 'config'
 
-const zipcode: Number = config.get('zipcode')
+const zipcode: string = config.get('zipcode')
 
 interface IResponce {
 	current_condition: {
@@ -19,6 +19,7 @@ interface IResponce {
 }
 
 interface IWeather {
+	zipcode: string
 	temp_F: Number
 	feelsLikeC: Number
 	cloudCover: Number
@@ -34,6 +35,7 @@ const grabWeather = async () => {
 	const resJson: IResponce = await res.json()
 
 	const weather: IWeather = {
+		zipcode: zipcode,
 		temp_F: parseInt(resJson.current_condition[0].temp_F),
 		feelsLikeC: parseInt(resJson.current_condition[0].FeelsLikeF),
 		cloudCover: parseInt(resJson.current_condition[0].cloudcover),
