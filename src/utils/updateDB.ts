@@ -4,7 +4,7 @@ import config from 'config'
 import Weather from '../models/Weather'
 import grabWeather from './grab-weather'
 
-const freq: Number = config.get('updaterFreq')
+const freq: Number = config.get('updaterFreqMin')
 
 const updater: ScheduledTask = schedule(
 	`*/${freq} * * * *`,
@@ -14,7 +14,7 @@ const updater: ScheduledTask = schedule(
 			Weather.create(weather)
 		} catch (e) {
 			console.log(
-				'⚠ Error trying to add the following entry to database:\n' + weather
+				'❌ Error trying to add the following entry to database:\n' + weather
 			)
 		}
 		if (config.get('printData')) console.log(weather)
@@ -25,10 +25,10 @@ const updater: ScheduledTask = schedule(
 const startUpdater = () => {
 	try {
 		updater.start()
-		console.log(`Updater Running every ${freq} Minute(s) 🔁`)
+		console.log(`Updating Database every ${freq} Minute(s) 🔁`)
 	} catch (e) {
 		console.log(
-			`Error starting database Updater: ${e.message}. Stopping Server 🛑`
+			`❌Error starting database Updater: ${e.message}.\nStopping Server due to Error! 🛑`
 		)
 		process.exit(1)
 	}

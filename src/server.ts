@@ -2,14 +2,20 @@ import express, { Application, Request, Response, NextFunction } from 'express'
 import config from 'config'
 import helmet from 'helmet'
 
-import runFuncitons from './utils/runFunctions'
+// routes
+import { router as weatherRouter } from './routes/weather'
 
-runFuncitons()
+// utils
+import runFuncitons from './utils/runFunctions'
 
 const PORT: Number = config.get('port')
 const app: Application = express()
 
+runFuncitons()
+
 app.use(helmet())
+
+app.use('/api', weatherRouter)
 
 app.get('/', (req: Request, res: Response) => {
 	res.send('hi there!')
