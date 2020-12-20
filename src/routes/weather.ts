@@ -9,9 +9,9 @@ const minuteFrequency: number = config.get('updaterFreqMin')
 // @route   Get weather/current
 // @desc    Return current weather
 // @access  Public
-router.get('/current', (req: Request, res: Response) => {
+router.get('/current', async (req: Request, res: Response) => {
 	try {
-		res.json(grabWeather())
+		res.json(await grabWeather())
 	} catch (e) {
 		console.log('❌ Error Sending Current Weather Data: ' + e.message)
 	}
