@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 export interface IWeather extends mongoose.Document {
 	zipcode: string
 	temp_F: Number
-	feelsLikeC: Number
+	feelsLikeF: Number
 	cloudCover: Number
 	humidity: Number
 	precipMM: Number
@@ -16,7 +16,7 @@ export interface IWeather extends mongoose.Document {
 const weatherSchema = new mongoose.Schema({
 	zipcode: String,
 	temp_F: Number,
-	feelsLikeC: Number,
+	feelsLikeF: Number,
 	cloudCover: Number,
 	humidity: Number,
 	precipMM: Number,

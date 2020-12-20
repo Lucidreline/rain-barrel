@@ -21,7 +21,7 @@ interface IResponce {
 interface IWeather {
 	zipcode: string
 	temp_F: Number
-	feelsLikeC: Number
+	feelsLikeF: Number
 	cloudCover: Number
 	humidity: Number
 	precipMM: Number
@@ -37,7 +37,7 @@ const grabWeather = async () => {
 	const weather: IWeather = {
 		zipcode: zipcode,
 		temp_F: parseInt(resJson.current_condition[0].temp_F),
-		feelsLikeC: parseInt(resJson.current_condition[0].FeelsLikeF),
+		feelsLikeF: parseInt(resJson.current_condition[0].FeelsLikeF),
 		cloudCover: parseInt(resJson.current_condition[0].cloudcover),
 		humidity: parseInt(resJson.current_condition[0].humidity),
 		precipMM: parseInt(resJson.current_condition[0].precipMM),
