@@ -1,5 +1,7 @@
 import fetch from 'node-fetch'
 import config from 'config'
+import { Date } from 'mongoose'
+import { isDate } from 'util'
 
 const zipcode: string = config.get('zipcode')
 
@@ -22,7 +24,6 @@ interface IWeather {
 	zipcode: string
 	temp_F: Number
 	feelsLikeF: Number
-	cloudCover: Number
 	humidity: Number
 	precipMM: Number
 	weatherCode: Number
@@ -38,7 +39,6 @@ const grabWeather = async () => {
 		zipcode: zipcode,
 		temp_F: parseInt(resJson.current_condition[0].temp_F),
 		feelsLikeF: parseInt(resJson.current_condition[0].FeelsLikeF),
-		cloudCover: parseInt(resJson.current_condition[0].cloudcover),
 		humidity: parseInt(resJson.current_condition[0].humidity),
 		precipMM: parseInt(resJson.current_condition[0].precipMM),
 		weatherCode: parseInt(resJson.current_condition[0].weatherCode),

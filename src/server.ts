@@ -18,7 +18,7 @@ app.use(helmet())
 app.use('/api', weatherRouter)
 
 app.get('/', (req: Request, res: Response) => {
-	res.send('hi there!')
+	res.send('Hi there! You can grab the current weather with /api')
 })
 
 app.listen(PORT, () => console.log(`Server Up on Port ${PORT} 💻`))
