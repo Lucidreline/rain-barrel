@@ -29,6 +29,7 @@ interface IWeather {
 	weatherCode: Number
 	windSpeedMPH: Number
 	weatherDesc: string
+	date: String // this is uppercase String because Date.now.tostring() returns String not string
 }
 
 const grabWeather = async () => {
@@ -44,6 +45,7 @@ const grabWeather = async () => {
 		weatherCode: parseInt(resJson.current_condition[0].weatherCode),
 		windSpeedMPH: parseInt(resJson.current_condition[0].windspeedMiles),
 		weatherDesc: resJson.current_condition[0].weatherDesc[0].value,
+		date: new Date().toString(),
 	}
 
 	return weather

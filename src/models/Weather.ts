@@ -9,7 +9,7 @@ export interface IWeather extends mongoose.Document {
 	weatherCode: Number
 	windSpeedMPH: Number
 	weatherDesc: string
-	date?: Date
+	date: String // this is uppercase String because Date.now.tostring() returns String not string
 }
 
 const weatherSchema = new mongoose.Schema({
@@ -21,7 +21,7 @@ const weatherSchema = new mongoose.Schema({
 	weatherCode: Number,
 	windSpeedMPH: Number,
 	weatherDesc: String,
-	date: { type: Date, default: Date.now },
+	date: String,
 })
 
 const Weather = mongoose.model<IWeather>('weather', weatherSchema)
