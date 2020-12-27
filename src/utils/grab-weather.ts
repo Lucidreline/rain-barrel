@@ -89,7 +89,7 @@ const grabWeather = async () => {
 		precipMM: parseInt(wttrResJson.current_condition[0].precipMM),
 		windSpeedMPH: parseInt(wttrResJson.current_condition[0].windspeedMiles),
 		weatherDesc: owmResJson.weather[0].description,
-		date: new Date().toString(),
+		date: new Date().toLocaleString(),
 	}
 
 	return weather

@@ -1,8 +1,8 @@
 {
   "name": "rain-barrel",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.8.0",
+  "description": "An Automated Weather Data Collection Service.",
+  "main": "./dist/server.js",
   "dependencies": {
     "config": "^3.3.3",
     "express": "^4.17.1",
@@ -27,6 +27,6 @@
     "dev": "nodemon src/server.ts",
     "build": "tsc -p ."
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Manuel Castaneda | Lucidreline",
+  "license": "MIT"
 }
