@@ -1,0 +1,26 @@
+# This workflow will do a clean install of node dependencies and build the source code.
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Update Repo
+        run: git pull origin master
+      
+      - name: Install Dependencies
+        run: npm i
+       
+      - name: Build App
+        run: npm run build --if-present
+      
+      - name: Restart App
+        run: pm2 restart portfolio
