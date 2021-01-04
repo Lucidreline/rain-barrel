@@ -23,4 +23,4 @@ jobs:
         run: npm run build --if-present
       
       - name: Restart App
-        run: pm2 restart portfolio
+        run: pm2 restart rain-barrel
