@@ -9,7 +9,7 @@ const freq: Number = config.get('updaterFreqMin')
 const updater: ScheduledTask = schedule(
 	`*/${freq} * * * *`,
 	async () => {
-		const weather = await grabWeather()
+		const weather = await grabWeather(config.get('zipcode'))
 		try {
 			Weather.create(weather)
 		} catch (e) {

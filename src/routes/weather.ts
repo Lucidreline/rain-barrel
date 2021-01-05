@@ -7,11 +7,22 @@ const router = Router()
 const minuteFrequency: number = config.get('updaterFreqMin')
 
 // @route   Get weather/current
-// @desc    Return current weather
+// @desc    Return current weather for zipcode in config
 // @access  Public
 router.get('/current', async (req: Request, res: Response) => {
 	try {
-		res.json(await grabWeather())
+		res.json(await grabWeather(config.get('zipcode')))
+	} catch (e) {
+		console.log('❌ Error Sending Current Weather Data: ' + e.message)
+	}
+})
+
+// @route   Get weather/current
+// @desc    Return current weather using given zipcode
+// @access  Public
+router.get('/current/:zipcode', async (req: Request, res: Response) => {
+	try {
+		res.json(await grabWeather(req.params.zipcode))
 	} catch (e) {
 		console.log('❌ Error Sending Current Weather Data: ' + e.message)
 	}

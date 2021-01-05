@@ -1,7 +1,6 @@
 import fetch from 'node-fetch'
 import config from 'config'
 
-const zipcode: string = config.get('zipcode')
 const owmKey: string = config.get('openWeatherMapKey')
 
 interface IWttrResponce {
@@ -56,7 +55,7 @@ interface IWeather {
 	date: String // this is uppercase String because Date.now.tostring() returns String not string
 }
 
-const grabWeather = async () => {
+const grabWeather = async (zipcode: string) => {
 	const wttrRes = await fetch(`http://wttr.in/${zipcode}?format=j1`)
 	const wttrResJson: IWttrResponce = await wttrRes.json()
 
