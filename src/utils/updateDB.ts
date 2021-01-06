@@ -2,7 +2,7 @@ import { schedule, ScheduledTask } from 'node-cron'
 import config from 'config'
 
 import Weather from '../models/Weather'
-import grabWeather from './grab-weather'
+import grabWeather from './grab-current-weather'
 
 const freq: Number = config.get('updaterFreqMin')
 

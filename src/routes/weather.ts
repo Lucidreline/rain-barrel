@@ -1,7 +1,7 @@
 import { Router, Request, Response, json } from 'express'
 import config from 'config'
 import Weather from '../models/Weather'
-import grabWeather from '../utils/grab-weather'
+import grabWeather from '../utils/grab-current-weather'
 
 const router = Router()
 const minuteFrequency: number = config.get('updaterFreqMin')
