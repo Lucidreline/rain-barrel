@@ -2,11 +2,12 @@ import { Router, Request, Response, json } from 'express'
 import config from 'config'
 import Weather from '../models/Weather'
 import grabWeather from '../utils/grab-current-weather'
+import grabTodaysMaxMins from '../utils/grab-todays-max-mins'
 
 const router = Router()
 const minuteFrequency: number = config.get('updaterFreqMin')
 
-// @route   Get weather/current
+// @route   Get api/current
 // @desc    Return current weather for zipcode in config
 // @access  Public
 router.get('/current', async (req: Request, res: Response) => {
@@ -17,7 +18,7 @@ router.get('/current', async (req: Request, res: Response) => {
 	}
 })
 
-// @route   Get weather/current
+// @route   Get api/current/:zipcode
 // @desc    Return current weather using given zipcode
 // @access  Public
 router.get('/current/:zipcode', async (req: Request, res: Response) => {
@@ -28,7 +29,29 @@ router.get('/current/:zipcode', async (req: Request, res: Response) => {
 	}
 })
 
-// @route   Get weather/
+// @route   Get api/maxmins
+// @desc    Return the max and mins of todays forcast for the zipcode in config
+// @access  Public
+router.get('/maxmins', async (req: Request, res: Response) => {
+	try {
+		res.json(await grabTodaysMaxMins(config.get('zipcode')))
+	} catch (e) {
+		console.log('❌ Error Sending Todays Max and Mins: ' + e.message)
+	}
+})
+
+// @route   Get api/maxMins/:zipcode
+// @desc    Return current weather using given zipcode
+// @access  Public
+router.get('/maxmins/:zipcode', async (req: Request, res: Response) => {
+	try {
+		res.json(await grabTodaysMaxMins(req.params.zipcode))
+	} catch (e) {
+		console.log('❌ Error Sending Todays Max and Mins: ' + e.message)
+	}
+})
+
+// @route   Get api/
 // @desc    Return all Weather entries in database
 // @access  Public
 router.get('/', async (req: Request, res: Response) => {
@@ -39,7 +62,7 @@ router.get('/', async (req: Request, res: Response) => {
 	}
 })
 
-// @route   Get weather/latest/:days
+// @route   Get api/latest/:days
 // @desc    Return weather from database of x latest days
 // @access  Public
 router.get('/latest/:days', async (req: Request, res: Response) => {
