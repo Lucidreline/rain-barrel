@@ -58,7 +58,7 @@ router.get('/current/:zipcode', async (req: Request, res: Response) => {
 // @route   Get api/forcast
 // @desc    Return the max and mins of todays forcast for the coordinates in config
 // @access  Public
-router.get('/forcast', async (req: Request, res: Response) => {
+router.get('/forcast/local', async (req: Request, res: Response) => {
 	try {
 		res.json(
 			await grabTodaysForcast(config.get('coord.lat'), config.get('coord.lon'))
@@ -71,9 +71,18 @@ router.get('/forcast', async (req: Request, res: Response) => {
 // @route   Get api/forcast/lat/lon
 // @desc    Return current weather using given coordinates
 // @access  Public
-router.get('/forcast/:lat/:lon', async (req: Request, res: Response) => {
+router.get('/forcast', async (req: Request, res: Response) => {
 	try {
-		res.json(await grabTodaysForcast(req.params.lat, req.params.lon))
+		if ('lat' in req.query && 'lon' in req.query) {
+			let lat = (req.query as any).lat
+			let lon = (req.query as any).lon
+			res.json(await grabTodaysForcast(lat, lon))
+		} else {
+			res.json({
+				status: 400,
+				msg: 'Error: Both lat and lon have to be provided in query.',
+			})
+		}
 	} catch (e) {
 		console.log('❌ Error Sending Todays Max and Mins: ' + e.message)
 	}

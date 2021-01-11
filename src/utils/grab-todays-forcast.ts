@@ -1,7 +1,9 @@
 import fetch from 'node-fetch'
 import config from 'config'
+import Weather from '../models/Weather'
 
 interface IOwmResponce {
+	cod?: string
 	lat: number
 	lon: number
 	timezone_offset: number
@@ -62,15 +64,56 @@ interface IOwmResponce {
 	}[]
 }
 
-const grabTodaysForcast = async (lat: string, lon: string) => {
-	const owmRes = await fetch(
-		`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=current,minutely&appid=${config.get(
-			'openWeatherMapKey'
-		)}`
-	)
-	const owmResJson: IOwmResponce = await owmRes.json()
+interface IErrorResponce {
+	cod: string
+	message: string
+}
 
-	return owmResJson
+interface IResponce {
+	status: {
+		code: number
+		msg: string
+	}
+	weather?: IOwmResponce | IErrorResponce
+}
+
+const grabTodaysForcast = async (
+	lat: string,
+	lon: string
+): Promise<IResponce> => {
+	try {
+		const owmRes = await fetch(
+			`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=current,minutely&appid=${config.get(
+				'openWeatherMapKey'
+			)}`
+		)
+
+		const owmResJson: IOwmResponce | IErrorResponce = await owmRes.json()
+
+		if (owmResJson.hasOwnProperty('cod')) {
+			return {
+				status: {
+					code: 400,
+					msg: 'Error: Coordinates are invalid.',
+				},
+			}
+		} else {
+			return {
+				status: {
+					code: 200,
+					msg: 'Successful',
+				},
+				weather: owmResJson,
+			}
+		}
+	} catch (error) {
+		return {
+			status: {
+				code: 500,
+				msg: 'Error on our side when trying to fetch your data.',
+			},
+		}
+	}
 }
 
 export default grabTodaysForcast
